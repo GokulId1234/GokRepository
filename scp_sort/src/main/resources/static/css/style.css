@@ -1,0 +1,50 @@
+.form {
+	background-color: #efefef;
+	width: 400px;
+	height: 50px;
+	border-radius: 7px;
+	padding: 20px;
+}
+
+div#sortdiv {
+	display: flex;
+	justify-content: space-around;
+}
+
+table#sorttbl {
+	padding: 50px;
+	border: 1px dotted black;
+	background: gainsboro;
+}
+
+div#historybuttondiv {
+	display: flex;
+	justify-content: space-around;
+}
+
+.container{
+	display: flex;
+	justify-content: space-around;
+}
+
+table#resulttable td {
+    border-bottom: 1px solid darkgray;
+    border-right: 1px solid darkgray;
+    padding: 4px;
+}
+
+table#resulttable {
+    text-align: justify;
+}
+
+table#resulttable tr:nth-child(even) {
+    background: #efefef;
+}
+table#resulttable th {
+    background: darkgray;
+}
+a#backlink
+{
+	display: flex;
+	justify-content: flex-end;
+}

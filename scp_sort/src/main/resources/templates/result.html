@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Sorted Numbers History</title>
+<link th:href="@{/static/css/style.css}" rel="stylesheet"
+	type="text/css" />
+
+</head>
+<body>
+	<div class="container">
+
+		<div th:if="${not #lists.isEmpty(sortedList)}">
+			
+			<h2 align="center">Sorted Numbers History</h2>
+			<a id="backlink" th:href="${'/api/login/' }">Back</a>
+			
+			<table id="resulttable">
+				<tr>
+					<th>Id</th>
+					<th>Sorted Numbers</th>
+					<th>Position changed</th>
+					<th>Time taken</th>
+					<th>Created Time</th>
+
+				</tr>
+				<tr th:each="sortNumber : ${sortedList}">
+					<td th:text="${sortNumber.serialNo}">Id</td>
+					<td th:text="${sortNumber.sortedNumbers}">Sorted Numbers</td>
+					<td th:text="${sortNumber.positionChanged}">Position changed</td>
+					<td th:text="${sortNumber.sortedTimeTaken}">Time taken</td>
+					<td th:text="${sortNumber.createdTimestamp}">Created Time</td>
+
+				</tr>
+
+			</table>
+
+		</div>
+	</div>
+
+</body>
+</html>

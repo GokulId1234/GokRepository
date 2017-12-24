@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Sorting App</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/static/css/style.css}" rel="stylesheet"
+	type="text/css" />
+</head>
+<body>
+	<h1 align="center">Sort Numbers</h1>
+	<form id="sortform" action="#" th:action="@{/api/sortNumbers}"
+		th:object="${sortDataBean}" method="post" class="cl_input">
+		
+		<div id="sortdiv">
+			<table id="sorttbl">
+				<tr>
+					<td><label for="txtareainput">Enter numbers</label></td>
+					<td><textarea id="txtareainput" rows="5" cols="30"
+							th:field="*{inputNumbers}"
+							title="Enter numbers with comma separated"
+							placeholder="Enter numbers separated by comma"></textarea>
+						<div th:if="${not #lists.isEmpty(validation)}">
+							<label th:text="${sortDataBean.errorMsg}" style="color: red"></label>
+						</div></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit" value="Submit"  /></td>
+				</tr>
+				<tr>
+					<td><br /> <br /></td>
+				</tr>
+				<tr>
+					<td><label for="txtareasort">Sorted Numbers</label></td>
+					<td><textarea id="txtareasort" rows="5" cols="30"
+							th:field="*{sortedNumbers}"></textarea> <!-- <input  type="text" th:field="*{sortedNumbers}" />--></td>
+				</tr>
+				<tr>
+					<td><label for="txtareatime">Sorted Time</label></td>
+					<td><input id="txtareatime" type="text"
+						th:field="*{sortedTimeTaken}" /></td>
+				</tr>
+				<tr>
+					<td><label for="txtareapos">Changed position</label></td>
+					<td><input id="txtareapos" type="text"
+						th:field="*{positionChanged}" /></td>
+				</tr>
+				<tr>
+					<td><br /></td>
+				</tr>
+			</table>
+		</div>
+	</form>
+	<form id="history" action="#" th:action="@{/api/retrieveSortedNumbers}"
+		method="get">
+		<div id="historybuttondiv">
+			<table id="historytbl">
+				<tr>
+					<td><input type="Submit"  value="History" /></td>
+				</tr>
+				<!-- <tr> <img src="/resources/images/handm.png" /> </tr> -->
+			</table>
+		</div>
+	</form>
+</body>
+</html>
