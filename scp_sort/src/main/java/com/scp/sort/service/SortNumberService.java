@@ -4,9 +4,6 @@
 package com.scp.sort.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +75,7 @@ public class SortNumberService {
 				SortNumbers saveSortNumbers = saveSortedNumberDetails(sortNumbers);
 				logger.info("saved serialNo" + saveSortNumbers.getSerialNo());
 			} else {
-				sortNumberDataBean.setErrorMsg("Please enter valid inputs");
+				sortNumberDataBean.setErrorMsg(ConstantsUtil.VALID_INPUT);
 				sortNumberDataBean.setNotValid(Boolean.TRUE);
 			}
 

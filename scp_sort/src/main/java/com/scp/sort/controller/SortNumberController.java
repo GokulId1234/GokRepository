@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.scp.sort.bean.SortNumberDataBean;
+import com.scp.sort.common.ConstantsUtil;
 import com.scp.sort.exception.SortNumberAccessException;
 import com.scp.sort.service.SortNumberService;
 
@@ -35,8 +37,8 @@ public class SortNumberController {
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView loadPage() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("form");
-		modelAndView.addObject("sortDataBean", new SortNumberDataBean());
+		modelAndView.setViewName(ConstantsUtil.VIEW_FORM);
+		modelAndView.addObject(ConstantsUtil.SORT_DATA_BEAN, new SortNumberDataBean());
 		return modelAndView;
 	}
 
@@ -51,8 +53,8 @@ public class SortNumberController {
 		List<SortNumberDataBean> sortNumberDataList = sortNumberService
 				.getSortedNumberHistory();
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("result");
-		modelAndView.addObject("sortedList", sortNumberDataList);
+		modelAndView.setViewName(ConstantsUtil.VIEW_RESULT);
+		modelAndView.addObject(ConstantsUtil.SORTED_LIST, sortNumberDataList);
 		return modelAndView;
 	}
 
@@ -69,14 +71,14 @@ public class SortNumberController {
 			Model model) throws SortNumberAccessException {
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("form");
+		modelAndView.setViewName(ConstantsUtil.VIEW_FORM);
 		sortNumberDataBean = sortNumberService
 				.sortNumbersInOrder(sortNumberDataBean);
 		if (sortNumberDataBean.isNotValid()) {
-			sortNumberDataBean.setErrorMsg("Please enter valid inputs");
-			modelAndView.addObject("validation", "Error");
+			sortNumberDataBean.setErrorMsg(ConstantsUtil.VALID_INPUT);
+			modelAndView.addObject(ConstantsUtil.STR_VALIDATION, ConstantsUtil.STR_ERROR);
 		}
-		modelAndView.addObject("sortDataBean", sortNumberDataBean);
+		modelAndView.addObject(ConstantsUtil.SORT_DATA_BEAN, sortNumberDataBean);
 
 		return modelAndView;
 	}

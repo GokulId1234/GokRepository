@@ -21,6 +21,13 @@ public class ConstantsUtil {
 	public static String STR_SEQUENCE="sequence";
 	public static String CLASSPATH = "classpath:/static/";
 	public static String PATH_STATIC_TEMPLATE="/static/**";
+	public static String VALID_INPUT="Please enter valid inputs";
+	public static String STR_VALIDATION="validation";
+	public static String STR_ERROR="Error";
+	public static String SORT_DATA_BEAN="sortDataBean";
+	public static String SORTED_LIST="sortedList";
+	public static String VIEW_FORM="form";
+	public static String VIEW_RESULT="result";
 	
 
 }
