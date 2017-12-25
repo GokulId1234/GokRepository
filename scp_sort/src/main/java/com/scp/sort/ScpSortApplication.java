@@ -14,6 +14,13 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.scp.sort.common.ConstantsUtil;
+
+/**
+ * Spring boot application class
+ * @author Gokul
+ *
+ */
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableWebMvc
@@ -33,8 +40,8 @@ public class ScpSortApplication extends WebMvcConfigurerAdapter implements
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**").addResourceLocations(
-				"classpath:/static/");
+		registry.addResourceHandler(ConstantsUtil.PATH_STATIC_TEMPLATE).addResourceLocations(
+				ConstantsUtil.CLASSPATH);
 	}
 
 	/*

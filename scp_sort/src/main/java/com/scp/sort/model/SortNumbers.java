@@ -21,7 +21,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
- * @author Gokul Entity bean class for tbl_sort_no
+ * Entity bean class for tbl_sort_no
+ * @author Gokul 
  */
 
 @Entity

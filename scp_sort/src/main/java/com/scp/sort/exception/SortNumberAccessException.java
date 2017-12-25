@@ -4,6 +4,7 @@
 package com.scp.sort.exception;
 
 /**
+ * Class to handle exceptions through user exceptions
  * @author Gokul
  *
  */

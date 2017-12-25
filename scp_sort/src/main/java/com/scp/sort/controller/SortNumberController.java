@@ -19,7 +19,7 @@ import com.scp.sort.service.SortNumberService;
 
 /**
  * @author Gokul
- * 
+ *  Rest service class to perform sort number app operations
  */
 
 @RestController
@@ -28,7 +28,10 @@ public class SortNumberController {
 	@Autowired
 	SortNumberService sortNumberService;
 
-	
+	/**
+	 * Method to load the application
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView loadPage() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -37,6 +40,11 @@ public class SortNumberController {
 		return modelAndView;
 	}
 
+	/**
+	 * Method to retrieve the history of the sorted elements
+	 * @return
+	 * @throws SortNumberAccessException
+	 */
 	@GetMapping("/retrieveSortedNumbers")
 	public ModelAndView showSortedNumbersHistory()
 			throws SortNumberAccessException {
@@ -48,6 +56,13 @@ public class SortNumberController {
 		return modelAndView;
 	}
 
+	/**
+	 * Method to derive numbers in a sorted order
+	 * @param sortNumberDataBean
+	 * @param model
+	 * @return ModelAndView
+	 * @throws SortNumberAccessException
+	 */
 	@RequestMapping(value = "/sortNumbers", method = RequestMethod.POST)
 	public ModelAndView sortNumbersInOrder(
 			@ModelAttribute("sortAttribute") SortNumberDataBean sortNumberDataBean,

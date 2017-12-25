@@ -11,20 +11,24 @@ import java.util.Map;
 import org.springframework.validation.ValidationUtils;
 
 import com.scp.sort.bean.SortNumberDataBean;
+import com.scp.sort.common.ConstantsUtil;
 import com.scp.sort.model.SortNumbers;
 
 /**
+ * Class to assist SortNumberService
  * @author Gokul
  * 
  */
 public class SortNumberServiceHelper {
+	
 	/**
-	 * 
+	 * Method to convert SortNumbers to SortNumberDataBean
 	 * @param sortList
-	 * @return
+	 * @return List<SortNumberDataBean>
 	 */
 
 	public List<SortNumberDataBean> getSortedListBean(List<SortNumbers> sortList) {
+		
 		List<SortNumberDataBean> sortNumberBeanList = new ArrayList<SortNumberDataBean>();
 		SortNumberDataBean sortNumberDataBean = null;
 		for (SortNumbers sortNumbers : sortList) {
@@ -43,9 +47,15 @@ public class SortNumberServiceHelper {
 		return sortNumberBeanList;
 
 	}
+	
+	/**
+	 * Method to validate input numbers and convert String to input arrays
+	 * @param sortNumbers
+	 * @return Map<String, Object>
+	 */
 
 	public Map<String, Object> validateInputNumbers(String sortNumbers) {
-		System.out.println("sortNumbers----"+sortNumbers);
+
 		boolean isValid = true;
 		Map<String, Object> validInputMap = new HashMap<String, Object>();
 		String[] inputNumberArray = null;
@@ -53,13 +63,11 @@ public class SortNumberServiceHelper {
 		if (null == sortNumbers || sortNumbers.isEmpty()) {
 			isValid = false;
 		} else {
-			System.out.println("else loop");
-			inputNumberArray = sortNumbers.split(",");
+			inputNumberArray = sortNumbers.split(ConstantsUtil.COMMA_SEPARATOR);
 
 			intArray = new int[inputNumberArray.length];
 			try {
 				for (int i = 0; i < inputNumberArray.length; i++) {
-					System.out.println("checkk---->" + inputNumberArray[i]);
 					intArray[i] = Integer.parseInt(inputNumberArray[i].trim());
 				}
 			} catch (Exception ne) {
@@ -67,8 +75,8 @@ public class SortNumberServiceHelper {
 				isValid = false;
 			}
 		}
-		validInputMap.put("intArray", intArray);
-		validInputMap.put("isValid", isValid);
+		validInputMap.put(ConstantsUtil.INT_ARRAY, intArray);
+		validInputMap.put(ConstantsUtil.IS_VALID, isValid);
 		return validInputMap;
 	}
 

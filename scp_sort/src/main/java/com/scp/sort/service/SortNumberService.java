@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.scp.sort.bean.SortNumberDataBean;
+import com.scp.sort.common.ConstantsUtil;
 import com.scp.sort.common.RandomQuickSortSeq;
 import com.scp.sort.dao.SortNumbersDAO;
 import com.scp.sort.exception.SortNumberAccessException;
@@ -27,19 +28,20 @@ import com.scp.sort.helper.SortNumberServiceHelper;
 import com.scp.sort.model.SortNumbers;
 
 /**
+ * Service class to perform business logics and handle DAO
  * @author Gokul
  * 
  */
 @Component
 public class SortNumberService {
+	
 	private static final Logger logger = LoggerFactory.getLogger(SortNumberService.class);
 	@Autowired
 	SortNumbersDAO sortNumbersDAO;
-
 	SortNumberServiceHelper sortNumberServiceHelper = new SortNumberServiceHelper();
 
 	/**
-	 * 
+	 * Method to perform numbers in a sorted order and save the sorted number details in a order
 	 * @param unOrderedNumberList
 	 * @return
 	 */
@@ -53,17 +55,17 @@ public class SortNumberService {
 
 			sortNumberDataBean.setErrorMsg(null);
 
-			boolean isValid = (boolean) validateSortNumberMap.get("isValid");
+			boolean isValid = (boolean) validateSortNumberMap.get(ConstantsUtil.IS_VALID);
 			if (isValid) {
-				int[] intArray = (int[]) validateSortNumberMap.get("intArray");
+				int[] intArray = (int[]) validateSortNumberMap.get(ConstantsUtil.INT_ARRAY);
 				Map<String, Object> sortMap = RandomQuickSortSeq
 						.getSortedSequence(intArray);
 				sortNumberDataBean.setSortedNumbers((String) sortMap
-						.get("sequence"));
-				sortNumberDataBean.setPositionChanged(sortMap.get("position")
+						.get(ConstantsUtil.STR_SEQUENCE));
+				sortNumberDataBean.setPositionChanged(sortMap.get(ConstantsUtil.STR_POSITION)
 						.toString());
 				sortNumberDataBean.setSortedTimeTaken(((Long) sortMap
-						.get("time")).toString());
+						.get(ConstantsUtil.STR_TIME)).toString());
 
 				SortNumbers sortNumbers = new SortNumbers();
 				sortNumbers.setSortedNumbers(sortNumberDataBean
@@ -88,13 +90,10 @@ public class SortNumberService {
 		return sortNumberDataBean;
 	}
 
-	/*
-	 * public List<SortNumbers> getSortedNumberDetails(); public SortNumbers
-	 * saveSortedNumbers(@Valid @RequestBody SortNumbers sortedNumbers);
-	 */
+	
 	/**
-	 * 
-	 * @return
+	 * Method to get the sorted number details
+	 * @return List<SortNumberDataBean>
 	 */
 	public List<SortNumberDataBean> getSortedNumberHistory() throws SortNumberAccessException{
 		List<SortNumberDataBean> sortNumberBeanList = new ArrayList<SortNumberDataBean>();
@@ -111,8 +110,15 @@ try{
 		return sortNumberBeanList;
 
 	}
+	
+	/**
+	 * Method to persist sorted number details
+	 * @param sortNumbersDetails
+	 * @return
+	 * @throws SortNumberAccessException
+	 */
 
-	public SortNumbers saveSortedNumberDetails(
+	private SortNumbers saveSortedNumberDetails(
 			@Valid @RequestBody SortNumbers sortNumbersDetails) throws SortNumberAccessException{
 		try{
 		return sortNumbersDAO.save(sortNumbersDetails);
