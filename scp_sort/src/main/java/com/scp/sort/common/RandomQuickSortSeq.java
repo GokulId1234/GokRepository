@@ -13,7 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class RandomQuickSortSeq {
+	private static final Logger logger = LoggerFactory.getLogger(RandomQuickSortSeq.class);
+
 	public static int arraySize = 0;
 	public static int[] sequence = null;
 
@@ -21,7 +26,7 @@ public class RandomQuickSortSeq {
 
 	public static void quickSort(int left, int right) {
 		if (right - left <= 0) {
-			swapPos++;
+			
 			return;
 		} else {
 			Random rand = new Random();
@@ -55,6 +60,9 @@ public class RandomQuickSortSeq {
 
 	public static void swap(int dex1, int dex2) {
 		int temp = sequence[dex1];
+		if(sequence[dex1]>sequence[dex2]){
+			swapPos++;
+		}
 		sequence[dex1] = sequence[dex2];
 		sequence[dex2] = temp;
 
@@ -62,24 +70,16 @@ public class RandomQuickSortSeq {
 
 	static void printSequence(int[] sorted_sequence) {
 		for (int i = 0; i < sorted_sequence.length; i++)
-			System.out.print(sorted_sequence[i] + " ");
+			logger.info(sorted_sequence[i] + " ");
 	}
 
-	/*
-	 * public static void main(String args[]) { String inputNumbers =
-	 * "12,3,45,4,89,78,2"; String [] inputNumberArray =
-	 * inputNumbers.split(","); int[] intArray = new
-	 * int[inputNumberArray.length]; for(int i = 0; i < inputNumberArray.length;
-	 * i++) { intArray[i] = Integer.parseInt(inputNumberArray[i]); }
-	 * getSortedSequence(intArray); }
-	 */
+	
 
 	public static Map<String, Object> getSortedSequence(int[] sortedNumberArr) {
 		sequence = sortedNumberArr;
 		arraySize = sortedNumberArr.length;
 
-		System.out.println("\nOriginal Sequence: ");
-		printSequence(sequence);
+		//printSequence(sequence);
 
 		long startTime = System.nanoTime();
 
@@ -87,20 +87,20 @@ public class RandomQuickSortSeq {
 
 		long stopTime = System.nanoTime();
 		long elapsedTime = stopTime - startTime;
-		System.out.println("\nSorted Sequence: ");
-		System.out.println("swapPos" + (swapPos - 1));
-		System.out.println("elapsedTime in nano " + elapsedTime);
-		System.out.println("elapsedTime in milli " + elapsedTime / 1000000);
+		logger.info("\nSorted Sequence: ");
+		logger.info("swapPos" + (swapPos - 1));
+		logger.info("elapsedTime in nano " + elapsedTime);
+		logger.info("elapsedTime in milli " + elapsedTime / 1000000);
 
-		printSequence(sequence);
+		//printSequence(sequence);
 		Map<String, Object> numberMap = new HashMap<String, Object>();
 
-		numberMap.put("position", (swapPos - 1));
-		numberMap.put("time", elapsedTime / 1000000);
+		numberMap.put("position", swapPos );
+		numberMap.put("time", elapsedTime);
 		String sortedSeq = Arrays.toString(sequence).replace("[", "")
 				.replace("]", "");
 		numberMap.put("sequence", sortedSeq);
-		System.out.println("sortedSeq " + sortedSeq);
+		logger.info("sortedSeq " + sortedSeq);
 		swapPos = 0;
 		return numberMap;
 	}

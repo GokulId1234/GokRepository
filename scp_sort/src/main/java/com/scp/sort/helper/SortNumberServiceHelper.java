@@ -45,6 +45,7 @@ public class SortNumberServiceHelper {
 	}
 
 	public Map<String, Object> validateInputNumbers(String sortNumbers) {
+		System.out.println("sortNumbers----"+sortNumbers);
 		boolean isValid = true;
 		Map<String, Object> validInputMap = new HashMap<String, Object>();
 		String[] inputNumberArray = null;
