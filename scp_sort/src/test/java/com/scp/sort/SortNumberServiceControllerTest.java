@@ -1,9 +1,5 @@
 package com.scp.sort;
 
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
