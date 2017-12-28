@@ -107,7 +107,6 @@ public class RandomQuickSortSeq {
 		
 		sequence = sortedNumberArr;
 		arraySize = sortedNumberArr.length;
-		// printSequence(sequence);
 		long startTime = System.nanoTime();
 		quickSort(0, arraySize - 1);
 		long stopTime = System.nanoTime();
@@ -116,7 +115,6 @@ public class RandomQuickSortSeq {
 		logger.info("swapPos" + (swapPos - 1));
 		logger.info("elapsedTime in nano " + elapsedTime);
 		logger.info("elapsedTime in milli " + elapsedTime / 1000000);
-		// printSequence(sequence);
 		Map<String, Object> numberMap = new HashMap<String, Object>();
 		numberMap.put(ConstantsUtil.STR_POSITION, (swapPos - 1));
 		numberMap.put(ConstantsUtil.STR_TIME, elapsedTime);

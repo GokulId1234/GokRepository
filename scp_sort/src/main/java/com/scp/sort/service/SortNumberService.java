@@ -26,24 +26,29 @@ import com.scp.sort.model.SortNumbers;
 
 /**
  * Service class to perform business logics and handle DAO
+ * 
  * @author Gokul
  * 
  */
 @Component
 public class SortNumberService {
-	
-	private static final Logger logger = LoggerFactory.getLogger(SortNumberService.class);
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(SortNumberService.class);
 	@Autowired
 	SortNumbersDAO sortNumbersDAO;
 	SortNumberServiceHelper sortNumberServiceHelper = new SortNumberServiceHelper();
 
 	/**
-	 * Method to perform numbers in a sorted order and save the sorted number details in a order
+	 * Method to perform numbers in a sorted order and save the sorted number
+	 * details in a order
+	 * 
 	 * @param unOrderedNumberList
 	 * @return
 	 */
 	public SortNumberDataBean sortNumbersInOrder(
-			SortNumberDataBean sortNumberDataBean) throws SortNumberAccessException{
+			SortNumberDataBean sortNumberDataBean)
+			throws SortNumberAccessException {
 
 		String inputNumbers = sortNumberDataBean.getInputNumbers();
 		try {
@@ -52,15 +57,17 @@ public class SortNumberService {
 
 			sortNumberDataBean.setErrorMsg(null);
 
-			boolean isValid = (boolean) validateSortNumberMap.get(ConstantsUtil.IS_VALID);
+			boolean isValid = (boolean) validateSortNumberMap
+					.get(ConstantsUtil.IS_VALID);
 			if (isValid) {
-				int[] intArray = (int[]) validateSortNumberMap.get(ConstantsUtil.INT_ARRAY);
+				int[] intArray = (int[]) validateSortNumberMap
+						.get(ConstantsUtil.INT_ARRAY);
 				Map<String, Object> sortMap = RandomQuickSortSeq
 						.getSortedSequence(intArray);
 				sortNumberDataBean.setSortedNumbers((String) sortMap
 						.get(ConstantsUtil.STR_SEQUENCE));
-				sortNumberDataBean.setPositionChanged(sortMap.get(ConstantsUtil.STR_POSITION)
-						.toString());
+				sortNumberDataBean.setPositionChanged(sortMap.get(
+						ConstantsUtil.STR_POSITION).toString());
 				sortNumberDataBean.setSortedTimeTaken(((Long) sortMap
 						.get(ConstantsUtil.STR_TIME)).toString());
 
@@ -71,7 +78,7 @@ public class SortNumberService {
 						.parseInt(sortNumberDataBean.getPositionChanged()));
 				sortNumbers.setSortedTime(new Long(sortNumberDataBean
 						.getSortedTimeTaken()));
-				
+
 				SortNumbers saveSortNumbers = saveSortedNumberDetails(sortNumbers);
 				logger.info("saved serialNo" + saveSortNumbers.getSerialNo());
 			} else {
@@ -79,49 +86,52 @@ public class SortNumberService {
 				sortNumberDataBean.setNotValid(Boolean.TRUE);
 			}
 
-		}catch(DataAccessException de){
+		} catch (DataAccessException de) {
 			throw new SortNumberAccessException(de.getMessage());
-		}catch(Exception exception){
+		} catch (Exception exception) {
 			throw new SortNumberAccessException(exception.getMessage());
 		}
 		return sortNumberDataBean;
 	}
 
-	
 	/**
 	 * Method to get the sorted number details
+	 * 
 	 * @return List<SortNumberDataBean>
 	 */
-	public List<SortNumberDataBean> getSortedNumberHistory() throws SortNumberAccessException{
+	public List<SortNumberDataBean> getSortedNumberHistory()
+			throws SortNumberAccessException {
 		List<SortNumberDataBean> sortNumberBeanList = new ArrayList<SortNumberDataBean>();
-try{
-		
-		List<SortNumbers> sortList = sortNumbersDAO.findAll();
-		sortNumberBeanList = sortNumberServiceHelper
-				.getSortedListBean(sortList);
-}catch(DataAccessException de){
-	throw new SortNumberAccessException(de.getMessage());
-}catch(Exception exception){
-	throw new SortNumberAccessException(exception.getMessage());
-}
+		try {
+
+			List<SortNumbers> sortList = sortNumbersDAO.findAll();
+			sortNumberBeanList = sortNumberServiceHelper
+					.getSortedListBean(sortList);
+		} catch (DataAccessException de) {
+			throw new SortNumberAccessException(de.getMessage());
+		} catch (Exception exception) {
+			throw new SortNumberAccessException(exception.getMessage());
+		}
 		return sortNumberBeanList;
 
 	}
-	
+
 	/**
 	 * Method to persist sorted number details
+	 * 
 	 * @param sortNumbersDetails
 	 * @return
 	 * @throws SortNumberAccessException
 	 */
 
 	private SortNumbers saveSortedNumberDetails(
-			@Valid @RequestBody SortNumbers sortNumbersDetails) throws SortNumberAccessException{
-		try{
-		return sortNumbersDAO.save(sortNumbersDetails);
-		}catch(DataAccessException de){
+			@Valid @RequestBody SortNumbers sortNumbersDetails)
+			throws SortNumberAccessException {
+		try {
+			return sortNumbersDAO.save(sortNumbersDetails);
+		} catch (DataAccessException de) {
 			throw new SortNumberAccessException(de.getMessage());
-		}catch(Exception exception){
+		} catch (Exception exception) {
 			throw new SortNumberAccessException(exception.getMessage());
 		}
 	}

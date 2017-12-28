@@ -20,8 +20,7 @@ import com.scp.sort.exception.SortNumberAccessException;
 import com.scp.sort.service.SortNumberService;
 
 /**
- * @author Gokul
- *  Rest service class to perform sort number app operations
+ * @author Gokul Rest service class to perform sort number app operations
  */
 
 @RestController
@@ -32,18 +31,21 @@ public class SortNumberController {
 
 	/**
 	 * Method to load the application
+	 * 
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView loadPage() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName(ConstantsUtil.VIEW_FORM);
-		modelAndView.addObject(ConstantsUtil.SORT_DATA_BEAN, new SortNumberDataBean());
+		modelAndView.addObject(ConstantsUtil.SORT_DATA_BEAN,
+				new SortNumberDataBean());
 		return modelAndView;
 	}
 
 	/**
 	 * Method to retrieve the history of the sorted elements
+	 * 
 	 * @return
 	 * @throws SortNumberAccessException
 	 */
@@ -60,6 +62,7 @@ public class SortNumberController {
 
 	/**
 	 * Method to derive numbers in a sorted order
+	 * 
 	 * @param sortNumberDataBean
 	 * @param model
 	 * @return ModelAndView
@@ -76,9 +79,11 @@ public class SortNumberController {
 				.sortNumbersInOrder(sortNumberDataBean);
 		if (sortNumberDataBean.isNotValid()) {
 			sortNumberDataBean.setErrorMsg(ConstantsUtil.VALID_INPUT);
-			modelAndView.addObject(ConstantsUtil.STR_VALIDATION, ConstantsUtil.STR_ERROR);
+			modelAndView.addObject(ConstantsUtil.STR_VALIDATION,
+					ConstantsUtil.STR_ERROR);
 		}
-		modelAndView.addObject(ConstantsUtil.SORT_DATA_BEAN, sortNumberDataBean);
+		modelAndView
+				.addObject(ConstantsUtil.SORT_DATA_BEAN, sortNumberDataBean);
 
 		return modelAndView;
 	}
